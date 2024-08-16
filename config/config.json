@@ -1,0 +1,11 @@
+{
+    "development": {
+      "username": "root",
+      "password": null,
+      "database": "recursos_humanos",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "operatorAliases": false
+    }
+  }
+  
