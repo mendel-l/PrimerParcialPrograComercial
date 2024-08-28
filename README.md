@@ -1,3 +1,10 @@
+# ¿COMO INICIAR EL PROYECTO?
+1. npm install | npm i
+2. npm install --save sequelize-cli
+2. 1 para la migracion ejecutar este comando: npx sequelize-cli db:migrate
+
+3. npm start
+
 # PRIMER PARCIAL DE PROGRA COMERCIAL
 aqui se enlistaran todas las peticiones y cuerpo JSON que se usaron:
 
