@@ -41,4 +41,16 @@ CREATE TABLE asignaciones (
     CONSTRAINT unique_empleado_proyecto UNIQUE (empleado_id, proyecto_id, fecha_liberacion)
 );
 
+-- TABLA ALAERTAS
+CREATE TABLE Alertas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    proyecto_id INT NOT NULL,
+    nombre_proyecto VARCHAR(255),
+    fecha_entrega DATE NOT NULL,
+    dias_restantes INT NOT NULL,
+    mensaje VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (proyecto_id) REFERENCES Proyectos(id) ON DELETE CASCADE
+);
 

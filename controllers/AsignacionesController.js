@@ -26,25 +26,26 @@ module.exports = {
     // POST
     async create(req, res) {
         try {
-            const { empleado_id, proyecto_id, fecha_asignacion } = req.body;
+            const { empleado_id, proyecto_id, fecha_asignacion, fecha_liberacion } = req.body;
 
-            // Validaciones adicionales
+            if (!empleado_id || !proyecto_id || !fecha_asignacion) {
+                return res.status(400).json({ error: 'Empleado ID, Proyecto ID y Fecha de Asignación son requeridos' });
+            }
+
             const empleado = await Empleados.findByPk(empleado_id);
             const proyecto = await Proyectos.findByPk(proyecto_id);
 
             if (!empleado) {
                 return res.status(404).json({ error: 'Empleado no encontrado' });
             }
-
             if (!proyecto) {
                 return res.status(404).json({ error: 'Proyecto no encontrado' });
             }
 
-            // Verificar si el empleado ya está asignado a otro proyecto
             const asignacionActual = await Asignaciones.findOne({
                 where: {
                     empleado_id: empleado_id,
-                    fecha_liberacion: null // Solo considera asignaciones activas
+                    fecha_liberacion: null
                 }
             });
 
@@ -55,7 +56,8 @@ module.exports = {
             const nuevaAsignacion = await Asignaciones.create({
                 empleado_id,
                 proyecto_id,
-                fecha_asignacion
+                fecha_asignacion,
+                fecha_liberacion
             });
 
             res.status(201).json(nuevaAsignacion);
@@ -76,15 +78,13 @@ module.exports = {
                 return res.status(404).json({ message: 'Asignación no encontrada' });
             }
 
-            // Validar si la fecha de liberación es proporcionada y actualiza
             if (fecha_liberacion) {
                 asignacion.fecha_liberacion = fecha_liberacion;
 
-                // Verificar si el empleado puede ser asignado a otro proyecto
                 const asignacionActiva = await Asignaciones.findOne({
                     where: {
                         empleado_id: asignacion.empleado_id,
-                        fecha_liberacion: null // Solo considera asignaciones activas
+                        fecha_liberacion: null
                     }
                 });
 

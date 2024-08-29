@@ -3,6 +3,7 @@ const router = Router();
 const EmpleadosController = require('../controllers/EmpleadosController');
 const ProyectosController = require('../controllers/ProyectosController');
 const AsignacionesController = require('../controllers/AsignacionesController');
+const alertasController = require('../controllers/AlertasController');
 
 // Rutas para empleados
 router.get('/empleados', EmpleadosController.getAll);
@@ -21,6 +22,11 @@ router.put('/proyectos/:id', ProyectosController.update);
 router.get('/asignaciones', AsignacionesController.getAll);
 router.post('/asignaciones', AsignacionesController.create);
 router.put('/asignaciones/:id', AsignacionesController.update);
+
+//ALERTAS
+router.get('/alertas', alertasController.getAll);
+router.post('/alertas/generar', alertasController.generarAlertas);
+router.put('/proyectos/:id', alertasController.update);
 
 module.exports = (app) => {
     app.use('/', router);
