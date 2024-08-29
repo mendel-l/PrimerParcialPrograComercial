@@ -49,14 +49,14 @@ http://localhost:3000/proyectos
 http://localhost:3000/proyectos/{id}
 
 2. POST
+#### se modifico el controlador de proyectos para que al generar un nuevo proyeto este verifique en uanto tiempo se finalizara el proeycto.
 http://localhost:3000/proyectos
 
 {
-    "nombre": "proyecto1",
-    "descripcion": "des1",
-    "fecha_inicio": "2023-08-01",
-    "fecha_fin": "2024-01-01",
-    "porcentaje_completado": 20.5
+  "nombre": "Nuevo Proyecto",
+  "descripcion": "Descripción del nuevo proyecto",
+  "fecha_inicio": "2024-08-01T00:00:00Z",
+  "fecha_fin": "2024-09-01T00:00:00Z"
 }
 
 3. PUT
@@ -71,7 +71,7 @@ http://localhost:3000/proyectos/{id}
 
 ## ####################################################
 
-## PROYECTOS
+## ASIGNACIONES
 1. GET
 http://localhost:3000/asignaciones
 
@@ -90,4 +90,22 @@ http://localhost:3000/asignaciones/{id}
 
 {
     "fecha_liberacion": "2024-06-30"
+}
+
+
+## ####################################################
+
+## ALERTAS
+1. GET
+http://localhost:3000/alertas
+
+2. POST
+#### busca un proyecto y notifica si el proyecto esta por finalizar y dice cuanto tiempo falt para que finalice
+http://localhost:3000/obtenerInformacionProyecto/{id}
+
+3. PUT
+http://localhost:3000/alertas/{id}
+
+{
+  "nueva_fecha_fin": "2024-09-15"
 }

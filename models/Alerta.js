@@ -2,39 +2,35 @@
 const { Model, DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  class Proyecto extends Model {
+  class Alerta extends Model {
     static associate(models) {
-      Proyecto.hasMany(models.Alerta, { foreignKey: 'proyecto_id', as: 'Alertas' });
+      // Definir la asociación con el modelo `Proyecto`
+      Alerta.belongsTo(models.Proyecto, { foreignKey: 'proyecto_id', as: 'Proyecto' });
     }
   }
   
-  Proyecto.init({
+  Alerta.init({
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
     },
-    nombre: {
-      type: DataTypes.STRING(200),
-      allowNull: false
+    proyecto_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'proyectos',
+        key: 'id'
+      }
     },
-    descripcion: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    fecha_inicio: {
-      type: DataTypes.DATE,
+    mensaje: {
+      type: DataTypes.STRING,
       allowNull: false
     },
     fecha_fin: {
       type: DataTypes.DATE,
-      allowNull: true
-    },
-    porcentaje_completado: {
-      type: DataTypes.DECIMAL(5, 2),
-      allowNull: true,
-      defaultValue: 0.00
+      allowNull: false
     },
     created_at: {
       type: DataTypes.DATE,
@@ -48,10 +44,10 @@ module.exports = (sequelize) => {
     }
   }, {
     sequelize,
-    modelName: 'Proyecto',
-    tableName: 'proyectos',
+    modelName: 'Alerta',
+    tableName: 'alertas',
     timestamps: false
   });
   
-  return Proyecto;
+  return Alerta;
 };
